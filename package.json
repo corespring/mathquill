@@ -1,11 +1,11 @@
 {
-  "name": "mathquill",
+  "name": "corespring-mathquill",
   "description": "Magic textboxes where you can type math as easily as writing",
   "version": "0.9.4",
   "license": "MPL-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mathquill/mathquill.git"
+    "url": "https://github.com/corespring/mathquill.git"
   },
   "dependencies": {
     "pjs": "3.x"
