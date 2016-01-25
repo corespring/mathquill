@@ -1,0 +1,25 @@
+{
+  "name": "mathquill",
+  "version": "0.9.5",
+  "description": "mathquill",
+  "main": [
+    "build/mathquill.js",
+    "build/mathquill.css"
+  ],
+  "ignore": [
+    "test",
+    ".gitignore",
+    ".gitattributes",
+    "node_modules",
+    "BUILDING",
+    "CHANGELOG.md",
+    "README.md",
+    "Makefile"
+  ],
+  "dependencies": {
+  },
+  "dependenciesIgnore": {
+  },
+  "devDependencies": {
+  }
+}
