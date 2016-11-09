@@ -54,12 +54,11 @@ jQuery.fn.mathquill = function(cmd, latex) {
           cursor = block && block.cursor;
 
         if (cursor)
-          cursor.writeLatex(latex);
+          cursor.writeLatex(latex).parent.blur();
       });
   case 'cmd':
     if (arguments.length > 1)
       return this.each(function() {
-
         var blockId = $(this).attr(mqBlockId),
           block = blockId && MathElement[blockId],
           cursor = block && block.cursor;
@@ -68,34 +67,7 @@ jQuery.fn.mathquill = function(cmd, latex) {
           var seln = cursor.prepareWrite();
           if (/^\\[a-z]+$/i.test(latex)) cursor.insertCmd(latex.slice(1), seln);
           else cursor.insertCh(latex, seln);
-        }
-      });
-  case 'cursor':
-    if (arguments.length > 1)
-      return this.each(function() {
-
-        var blockId = $(this).attr(mqBlockId),
-          block = blockId && MathElement[blockId],
-          cursor = block && block.cursor;
-
-        if (cursor) {
-          switch (latex) {
-            case 'left':
-              cursor.moveLeft();
-              break;
-            case 'right':
-              cursor.moveRight();
-              break;
-            case 'up':
-              cursor.moveUp();
-              break;
-            case 'down':
-              cursor.moveDown();
-              break;
-            case 'backspace':
-              cursor.backspace();
-              break;
-          }
+          cursor.hide().parent.blur();
         }
       });
   default:
