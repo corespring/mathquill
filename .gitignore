@@ -4,6 +4,9 @@
 /node_modules
 
 # dist
-/build
 /mathquill-*.tgz
 /mathquill.github.com
+
+# idea
+.idea
+*.iml
