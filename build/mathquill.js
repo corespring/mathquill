@@ -292,6 +292,7 @@ var manageTextarea = (function() {
 
     // -*- event handlers -*- //
     function onKeydown(e) {
+      console.log("OnKey: ", e);
       keydown = e;
       keypress = null;
 
@@ -299,6 +300,7 @@ var manageTextarea = (function() {
     }
 
     function onKeypress(e) {
+      console.log("OnKeyP: ", e);
       // call the key handler for repeated keypresses.
       // This excludes keypresses that happen directly
       // after keydown.  In that case, there will be
@@ -1913,6 +1915,23 @@ LatexCmds.fraction = P(MathCommand, function(_, _super) {
     this.down = this.ends[L].down = this.ends[R];
   };
 });
+
+var MixedFraction =
+  LatexCmds.mfrac = P(Fraction, function(_, _super) {
+    _.htmlTemplate =
+      '<span class="non-leaf">&0</span>'
+    + '<span class="fraction non-leaf">'
+    +   '<span class="numerator">&0</span>'
+    +   '<span class="denominator">&1</span>'
+    +   '<span style="display:inline-block;width:0">&nbsp;</span>'
+    + '</span>'
+    ;
+    _.textTemplate = ['(', '/', ')'];
+    _.latex = function() {
+      return '\\sqrt['+this.ends[L].latex()+']{'+this.ends[R].latex()+'}';
+    };
+  });
+
 
 var LiveFraction =
 LatexCmds.over =
