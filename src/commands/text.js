@@ -48,8 +48,10 @@ var TextBlock = P(Node, function(_, super_) {
     return optWhitespace
       .then(string('{')).then(regex(/^[^}]*/)).skip(string('}'))
       .map(function(text) {
-        if (text.length === 0) return Fragment();
-
+        // TODO: is this the correct behavior when parsing
+        // the latex \text{} ?  This violates the requirement that
+        // the text contents are always nonempty.  Should we just
+        // disown the parent node instead?
         TextPiece(text).adopt(textBlock, 0, 0);
         return textBlock;
       })
@@ -62,11 +64,7 @@ var TextBlock = P(Node, function(_, super_) {
     });
   };
   _.text = function() { return '"' + this.textContents() + '"'; };
-  _.latex = function() {
-    var contents = this.textContents();
-    if (contents.length === 0) return '';
-    return '\\text{' + contents + '}';
-  };
+  _.latex = function() { return '\\text{' + this.textContents() + '}'; };
   _.html = function() {
     return (
         '<span class="mq-text-mode" mathquill-command-id='+this.id+'>'
@@ -109,7 +107,7 @@ var TextBlock = P(Node, function(_, super_) {
     else { // split apart
       var leftBlock = TextBlock();
       var leftPc = this.ends[L];
-      leftPc.disown().jQ.detach();
+      leftPc.disown();
       leftPc.adopt(leftBlock, 0, 0);
 
       cursor.insLeftOf(this);
@@ -164,22 +162,15 @@ var TextBlock = P(Node, function(_, super_) {
     }
   };
 
-  _.blur = function(cursor) {
+  _.blur = function() {
     MathBlock.prototype.blur.call(this);
-    if (!cursor) return;
-    if (this.textContents() === '') {
-      this.remove();
-      if (cursor[L] === this) cursor[L] = this[L];
-      else if (cursor[R] === this) cursor[R] = this[R];
-    }
-    else fuseChildren(this);
+    fuseChildren(this);
   };
 
   function fuseChildren(self) {
     self.jQ[0].normalize();
 
     var textPcDom = self.jQ[0].firstChild;
-    if (!textPcDom) return;
     pray('only node in TextBlock span is Text node', textPcDom.nodeType === 3);
     // nodeType === 3 has meant a Text node since ancient times:
     //   http://reference.sitepoint.com/javascript/Node/nodeType
@@ -296,6 +287,7 @@ var TextPiece = P(Node, function(_, super_) {
   };
 });
 
+CharCmds.$ =
 LatexCmds.text =
 LatexCmds.textnormal =
 LatexCmds.textrm =

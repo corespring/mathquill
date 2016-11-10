@@ -1,0 +1,34 @@
+{
+  "name": "mathquill",
+  "description": "Easily type math in your webapp",
+  "main": "",
+  "authors": [
+    "dracco <draccoz@gmail.com>"
+  ],
+  "license": "MPL-2.0",
+  "keywords": [
+    "math",
+    "latex",
+    "mathquill"
+  ],
+  "homepage": "https://github.com/Draccoz/mathquill",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "scripts"
+  ],
+  "version": "0.11.1",
+  "_release": "0.11.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.11.1",
+    "commit": "e1ff4ac41a0573bb69a75a8d415ca5df645c80b8"
+  },
+  "_source": "https://github.com/Draccoz/mathquill.git",
+  "_target": "~0.11.1",
+  "_originalSource": "mathquill-build"
+}
